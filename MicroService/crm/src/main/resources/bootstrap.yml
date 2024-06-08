@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: crm-service
+  cloud:
+    nacos:
+      server-addr: 58.87.105.2:8848
+      discovery:
+        namespace: local1
+    config:
+      name: crm
+      uri: http://localhost:8888
+      lable: master
+      profile: default
+#  cache:
+#    type: redis
+#  redis:
+#    host: 58.87.105.2
+#    port: 6379
+#    jedis: # 设置Redis连接池
+#      pool:
+#        max-wait: 2000ms
+#        min-idle: 2
+#        max-idle: 8
+#        max-active: 10
+#    password: BeiJingJiaoTongDaXue1234567890
+  zipkin:
+    base-url: http://58.87.105.2:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+server:
+  port: 3002
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      Client:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 100
+        ringBufferSizeInHalfOpenState: 10
+        waitDurationInOpenState: 10000
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+        recordExceptions:
+          - java.io.IOException
+          - java.lang.IllegalStateException
+  retry:
+    instances:
+      Client:
+        maxRetryAttempts: 3
+        waitDuration: 500
+        retryExceptions:
+          - java.io.IOException
+
+
+#logging:
+#  level:
+#    com.bjtu.user: debug
+#    root: debug
+#    sun.rmi: error
+#    sun.net.www.protocol: error
