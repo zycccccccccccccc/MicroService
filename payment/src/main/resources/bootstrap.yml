@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: payment-service
+  cloud:
+    nacos:
+      server-addr: 58.87.105.2:8848
+      discovery:
+        namespace: local1
+    config:
+      name: payment
+      uri: http://localhost:8888
+      lable: master
+      profile: default
+#  cache:
+#    type: redis
+#  redis:
+#    host: 58.87.105.2
+#    port: 6379
+#    jedis: # 设置Redis连接池
+#      pool:
+#        max-wait: 2000ms
+#        min-idle: 2
+#        max-idle: 8
+#        max-active: 10
+#    password: BeiJingJiaoTongDaXue1234567890
+  zipkin:
+    base-url: http://58.87.105.2:9411
+  sleuth:
+    sampler:
+      probability: 1.0
+server:
+  port: 3004
+
+#logging:
+#  level:
+#    com.bjtu.user: debug
+#    root: debug
+#    sun.rmi: error
+#    sun.net.www.protocol: error
